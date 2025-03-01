@@ -31,8 +31,8 @@ services:
     volumes:
       - ./db/mongodb/data:/data
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=rootuser
-      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
     networks:
       local-network:
         aliases:
