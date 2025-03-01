@@ -1,0 +1,51 @@
+name: local-infra
+
+networks:
+  local-network:
+    driver: bridge
+
+services:
+  # mysql
+  mysql:
+    image: mysql:latest
+    container_name: local_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+    ports:
+      - "3666:3306"
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    networks:
+      local-network:
+        aliases:
+          - mysql
+  # mongodb
+  mongo:
+    image: mongo:latest
+    container_name: local_mongo
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - ./db/mongodb/data:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+    networks:
+      local-network:
+        aliases:
+          - mongo
+  # redis
+  redis:
+    image: redis:latest
+    container_name: local_redis
+    restart: always
+    tty: true
+    ports:
+      - "63792:6379"
+    networks:
+      local-network:
+        aliases:
+          - redis
