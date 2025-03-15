@@ -49,3 +49,11 @@ services:
       local-network:
         aliases:
           - redis
+  # zipkin
+  zipkin:
+    restart: always
+    image: openzipkin/zipkin
+    container_name: local_zipkin
+    ports:
+      - "9411:9411"
+    
