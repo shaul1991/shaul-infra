@@ -1,3 +1,4 @@
 /.idea/
 /db/mongodb
 /db/mysql
+/db/postgres

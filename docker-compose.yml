@@ -82,3 +82,21 @@ services:
         local-network:
           aliases:
             - keycloak
+
+  # postgres
+  postgres:
+    image: postgres:latest
+    container_name: local_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: root
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/postgres:/var/lib/postgresql/data
+    networks:
+      local-network:
+          aliases:
+          - postgres
