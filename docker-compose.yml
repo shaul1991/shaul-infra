@@ -57,3 +57,28 @@ services:
     ports:
       - "9411:9411"
     
+  # keycloak
+  keycloak:
+      image: quay.io/keycloak/keycloak:26.1.4
+      container_name: local_keycloak
+      command: [ "start-dev" ]
+      restart: always
+      environment:
+        KC_DB: mysql
+        KC_DB_URL: jdbc:mysql://mysql:3306/keycloak
+        KC_DB_USERNAME: root
+        KC_DB_PASSWORD: root
+        KC_BOOTSTRAP_ADMIN_USERNAME: admin
+        KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+        KC_HEALTH_ENABLED: true
+        KC_METRICS_ENABLED: true
+      ports:
+        - "9090:8080"
+      volumes:
+        - "./keycloak/realms:/opt/keycloak/data/import/"
+      depends_on:
+        - mysql
+      networks:
+        local-network:
+          aliases:
+            - keycloak
